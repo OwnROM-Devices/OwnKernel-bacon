@@ -40,14 +40,8 @@ function make_dtb {
 
 }
 function clean_all {
-		cd $REPACK_DIR
-		rm -rf $KERNEL
-		rm -rf $DTBIMAGE
-		git reset --hard > /dev/null 2>&1
-		git clean -f -d > /dev/null 2>&1
-		cd $KERNEL_DIR
-		echo
 		make clean && make mrproper
+		rm include/linux/autoconf.h
 }
 
 function make_kernel {
@@ -59,7 +53,7 @@ function make_kernel {
 
 function make_zip {
 		cd $REPACK_DIR
-		zip -r9 ~/android/OwnKernel_$device-$OWN_VER.zip *
+		zip -r9 ~/android/$OWN_VER.zip *
 		cd $KERNEL_DIR
 }
 
