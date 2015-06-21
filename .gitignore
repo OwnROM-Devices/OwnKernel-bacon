@@ -88,5 +88,5 @@ GTAGS
 # Generated source files
 smd_rpc_sym.c
 
-#gedit :3
-*~
+#AnyKernel Folder
+anykernel/*
