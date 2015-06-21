@@ -10,17 +10,18 @@ clear
 
 # Resources
 THREAD="-j$(grep -c ^processor /proc/cpuinfo)"
-KERNEL="zImage-dtb"
+KERNEL="zImage"
+DTBIMAGE="dtb"
 DEFCONFIG="ownbacon_defconfig"
 device="bacon"
 
 # Kernel Details
-BASE_AK_VER="OwnKernel-Bacon-"
+BASE_OWN_VER="OwnKernel-Bacon-"
 VER="V1.0"
-AK_VER="$BASE_AK_VER$VER"
+OWN_VER="$BASE_OWN_VER$VER"
 
 # Vars
-export LOCALVERSION=~`echo $AK_VER`
+export LOCALVERSION=~`echo $OWN_VER`
 export CROSS_COMPILE="/home/akhil/android/arm-eabi-6.0/bin/arm-eabi-"
 export ARCH=arm
 export SUBARCH=arm
@@ -29,13 +30,16 @@ export SUBARCH=arm
 KERNEL_DIR=`pwd`
 REPACK_DIR="$KERNEL_DIR/anykernel"
 PATCH_DIR="$KERNEL_DIR/anykernel/patch"
-MODULES_DIR="$KERNEL_DIR/anykernel/modules"
 ZIP_MOVE="/home/akhil/android/OwnKernel/$device"
 ZIMAGE_DIR="$KERNEL_DIR/arch/arm/boot"
 
 # Functions
+
+function make_dtb {
+		$REPACK_DIR/tools/dtbToolCM -2 -o $REPACK_DIR/$DTBIMAGE -s 2048 -p scripts/dtc/ arch/arm/boot/
+
+}
 function clean_all {
-		rm -rf $MODULES_DIR/*
 		cd $REPACK_DIR
 		rm -rf $KERNEL
 		rm -rf $DTBIMAGE
@@ -53,15 +57,9 @@ function make_kernel {
 		cp -vr $ZIMAGE_DIR/$KERNEL $REPACK_DIR/zImage
 }
 
-function make_modules {
-		rm `echo $MODULES_DIR"/*"`
-		find $KERNEL_DIR -name '*.ko' -exec cp -v {} $MODULES_DIR \;
-}
-
 function make_zip {
 		cd $REPACK_DIR
-		zip -r9 `echo $AK_VER`.zip *
-		mv  `echo $AK_VER`.zip $ZIP_MOVE
+		zip -r9 ~/android/OwnKernel_$device-$OWN_VER.zip *
 		cd $KERNEL_DIR
 }
 
@@ -108,7 +106,6 @@ case "$dchoice" in
 	y|Y)
 		make_kernel
 		make_dtb
-		make_modules
 		make_zip
 		break
 		;;
