@@ -27,7 +27,7 @@ export SUBARCH=arm
 
 # Paths
 KERNEL_DIR=`pwd`
-REPACK_DIR="$KERNEL_DIR"
+REPACK_DIR="$KERNEL_DIR/anykernel"
 PATCH_DIR="$KERNEL_DIR/anykernel/patch"
 MODULES_DIR="$KERNEL_DIR/anykernel/modules"
 ZIP_MOVE="/home/akhil/android/OwnKernel/$device"
@@ -50,7 +50,7 @@ function make_kernel {
 		echo
 		make $DEFCONFIG
 		make $THREAD
-		cp -vr $ZIMAGE_DIR/$KERNEL $REPACK_DIR/anykernel/zImage
+		cp -vr $ZIMAGE_DIR/$KERNEL $REPACK_DIR/zImage
 }
 
 function make_modules {
