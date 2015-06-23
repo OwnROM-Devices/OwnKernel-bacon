@@ -55,14 +55,30 @@ function make_zip {
 		cd $REPACK_DIR
 		zip -r9 ~/android/$OWN_VER.zip *
 		cd $KERNEL_DIR
+		while read -p "Do you want to upload zip (y/n)? " uchoice
+		do
+		case "$uchoice" in
+		        y|Y )
+		                upload ~/android/$OWN_VER.zip
+		                break
+		                ;;
+		        n|N )
+		                break
+		                ;;
+		        * )
+		                echo
+		                echo "Invalid try again!"
+		                echo
+		                ;;
+		esac
+		done
+}
+function upload {
+curl --ftp-pasv -T $1 ftp://$AFH_USER:$AFH_PASS@uploads.androidfilehost.com
 }
 
 
 DATE_START=$(date +"%s")
-
-echo "---------------"
-echo "Kernel Version:"
-echo "---------------"
 
 echo -e "${red}"; echo -e "${blink_red}"; echo "$AK_VER"; echo -e "${restore}";
 
