@@ -9,7 +9,7 @@ restore='\033[0m'
 clear
 
 # Resources
-THREAD="-j$(grep -c ^processor /proc/cpuinfo)"
+THREAD="-j16"
 KERNEL="zImage"
 DTBIMAGE="dtb"
 DEFCONFIG="ownbacon_defconfig"
@@ -17,7 +17,7 @@ device="bacon"
 
 # Kernel Details
 BASE_OWN_VER="OwnKernel-Bacon-"
-VER="V1.0"
+VER="V1.1"
 OWN_VER="$BASE_OWN_VER$VER"
 
 # Vars
@@ -116,7 +116,9 @@ case "$dchoice" in
 	y|Y)
 		make_kernel
 		make_dtb
+		if [ -e "arch/arm/boot/zImage" ] then
 		make_zip
+		fi
 		break
 		;;
 	n|N )
