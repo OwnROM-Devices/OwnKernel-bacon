@@ -53,7 +53,7 @@ function make_kernel {
 
 function make_zip {
 		cd $REPACK_DIR
-		zip -r9 ~/android/$OWN_VER.zip *
+		zip -r9 ~/android/$OWN_VER-$(date +%Y%m%d).zip *
 		cd $KERNEL_DIR
 		while read -p "Do you want to upload zip (y/n)? " uchoice
 		do
