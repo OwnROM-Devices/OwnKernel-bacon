@@ -1,7 +1,7 @@
 show_progress(1.34, 4);
 ui_print(" ");
 ui_print(" ");
-ui_print(" Akhil's OwnKernel Kernel");
+ui_print(" Akhil's OwnKernel");
 ui_print("    for the Oneplus One!    ");
 ui_print(" ");
 ui_print(" ");

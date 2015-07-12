@@ -3,11 +3,11 @@
 
 ## AnyKernel setup
 # EDIFY properties
-kernel.string=OwnKernel-Bacon by akhilnarang@xda
+kernel.string=OwnKernel-Bacon
 do.devicecheck=1
-do.initd=0
+do.initd=1
 do.modules=0
-do.cleanup=0
+do.cleanup=1
 device.name1=A0001
 device.name2=bacon
 device.name3=One A0001

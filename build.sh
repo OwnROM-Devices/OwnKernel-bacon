@@ -9,7 +9,7 @@ restore='\033[0m'
 clear
 
 # Resources
-THREAD="-j16"
+THREAD="-j8"
 KERNEL="zImage"
 DTBIMAGE="dtb"
 DEFCONFIG="ownbacon_defconfig"
@@ -116,7 +116,7 @@ case "$dchoice" in
 	y|Y)
 		make_kernel
 		make_dtb
-		if [ -e "arch/arm/boot/zImage" ] then
+		if [ -e "arch/arm/boot/zImage" ]; then
 		make_zip
 		fi
 		break
