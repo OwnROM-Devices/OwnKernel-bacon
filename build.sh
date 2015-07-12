@@ -32,7 +32,7 @@ REPACK_DIR="$KERNEL_DIR/anykernel"
 PATCH_DIR="$KERNEL_DIR/anykernel/patch"
 ZIP_MOVE="/home/akhil/android/OwnKernel/$device"
 ZIMAGE_DIR="$KERNEL_DIR/arch/arm/boot"
-
+FINAL_ZIP="/home/akhil/android/OwnKernel-$OWN_VER-$(date +%Y%m%d).zip"
 # Functions
 
 function make_dtb {
@@ -59,7 +59,7 @@ function make_zip {
 		do
 		case "$uchoice" in
 		        y|Y )
-		                upload ~/android/$OWN_VER.zip
+		                upload $FINAL_ZIP
 		                break
 		                ;;
 		        n|N )
@@ -72,9 +72,6 @@ function make_zip {
 		                ;;
 		esac
 		done
-}
-function upload {
-curl --ftp-pasv -T $1 ftp://$AFH_USER:$AFH_PASS@uploads.androidfilehost.com
 }
 
 
