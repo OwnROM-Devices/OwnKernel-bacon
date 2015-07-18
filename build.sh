@@ -22,7 +22,7 @@ OWN_VER="$BASE_OWN_VER$VER"
 
 # Vars
 export LOCALVERSION=~`echo $OWN_VER`
-export CROSS_COMPILE="/home/akhil/android/arm-eabi-6.0/bin/arm-eabi-"
+export CROSS_COMPILE="/home/akhilnarang/android/arm-eabi-6.0/bin/arm-eabi-"
 export ARCH=arm
 export SUBARCH=arm
 
@@ -30,9 +30,9 @@ export SUBARCH=arm
 KERNEL_DIR=`pwd`
 REPACK_DIR="$KERNEL_DIR/anykernel"
 PATCH_DIR="$KERNEL_DIR/anykernel/patch"
-ZIP_MOVE="/home/akhil/android/OwnKernel/$device"
+ZIP_MOVE="/home/akhilnarang/android/OwnKernel/$device"
 ZIMAGE_DIR="$KERNEL_DIR/arch/arm/boot"
-FINAL_ZIP="/home/akhil/android/OwnKernel-$OWN_VER-$(date +%Y%m%d).zip"
+FINAL_ZIP="/home/akhilnarang/android/OwnKernel-$OWN_VER-$(date +%Y%m%d).zip"
 # Functions
 
 function make_dtb {
