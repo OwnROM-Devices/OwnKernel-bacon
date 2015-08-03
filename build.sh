@@ -17,11 +17,11 @@ device="bacon"
 
 # Kernel Details
 BASE_OWN_VER="OwnKernel-Bacon-"
-VER="V1.1"
+VER="V1.2"
 OWN_VER="$BASE_OWN_VER$VER"
 
 # Vars
-export LOCALVERSION=~`echo $OWN_VER`
+export LOCALVERSION=-`echo $OWN_VER`
 export CROSS_COMPILE="/home/akhilnarang/android/arm-eabi-6.0/bin/arm-eabi-"
 export ARCH=arm
 export SUBARCH=arm
@@ -59,7 +59,7 @@ function make_zip {
 		do
 		case "$uchoice" in
 		        y|Y )
-		                upload $FINAL_ZIP
+		                upload-sf $FINAL_ZIP OwnKernel/bacon/
 		                break
 		                ;;
 		        n|N )
