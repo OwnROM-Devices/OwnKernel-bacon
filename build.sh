@@ -30,7 +30,6 @@ export SUBARCH=arm
 KERNEL_DIR=`pwd`
 REPACK_DIR="$KERNEL_DIR/anykernel"
 PATCH_DIR="$KERNEL_DIR/anykernel/patch"
-ZIP_MOVE="/home/akhilnarang/android/OwnKernel/$device"
 ZIMAGE_DIR="$KERNEL_DIR/arch/arm/boot"
 FINAL_ZIP="/home/akhilnarang/android/OwnKernel-$OWN_VER-$(date +%Y%m%d).zip"
 # Functions
@@ -59,7 +58,7 @@ function make_zip {
 		do
 		case "$uchoice" in
 		        y|Y )
-		                upload-sf $FINAL_ZIP OwnKernel/bacon/
+		                upload-sf $FINAL_ZIP OnePlusOne/OwnKernel/
 		                break
 		                ;;
 		        n|N )
