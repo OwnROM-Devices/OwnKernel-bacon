@@ -19,7 +19,7 @@ device="bacon"
 BASE_OWN_VER="OwnKernel-Bacon-"
 VER="V1.2"
 OWN_VER="$BASE_OWN_VER$VER"
-
+KBUILD_BUILD_HOST="RandomlyJoblessSleepyHungryFat-i7"
 # Vars
 export LOCALVERSION=-`echo $OWN_VER`
 export CROSS_COMPILE="/home/akhilnarang/android/opo-tc/bin/arm-architoolchain-linux-gnueabihf-"
@@ -84,6 +84,22 @@ echo "Making OwnKernel:"
 echo "-----------------"
 echo -e "${restore}"
 
+case "$1" in
+clean|cleanbuild)
+clean_all
+make_kernel
+make_dtb
+if [ -e "arch/arm/boot/zImage" ]; then
+make_zip
+fi
+;;
+dirty)
+make_kernel
+make_dtb
+if [ -e "arch/arm/boot/zImage" ]; then
+make_zip
+fi
+*)
 while read -p "Do you want to clean stuff (y/n)? " cchoice
 do
 case "$cchoice" in
@@ -127,7 +143,8 @@ case "$dchoice" in
 		;;
 esac
 done
-
+;;
+esac
 echo -e "${green}"
 echo "-------------------"
 echo "Build Completed in:"
