@@ -1,11 +1,11 @@
-# AnyKernel 2.0 Ramdisk Mod Script 
+# AnyKernel 2.0 Ramdisk Mod Script
 # osm0sis @ xda-developers
 
 ## AnyKernel setup
 # EDIFY properties
 kernel.string=OwnKernel-Bacon
 do.devicecheck=1
-do.initd=1
+do.initd=0
 do.modules=0
 do.cleanup=1
 device.name1=A0001
