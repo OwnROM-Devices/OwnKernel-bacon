@@ -31,7 +31,7 @@ KERNEL_DIR=`pwd`
 REPACK_DIR="$KERNEL_DIR/anykernel"
 PATCH_DIR="$KERNEL_DIR/anykernel/patch"
 ZIMAGE_DIR="$KERNEL_DIR/arch/arm/boot"
-FINAL_ZIP="/home/akhilnarang/android/OwnKernel-$OWN_VER-$(date +%Y%m%d).zip"
+FINAL_ZIP="/home/akhilnarang/android/$OWN_VER-$(date +%Y%m%d).zip"
 # Functions
 
 function make_dtb {
@@ -58,7 +58,7 @@ function make_zip {
 		do
 		case "$uchoice" in
 		        y|Y )
-		                upload-sf $FINAL_ZIP OnePlusOne/OwnKernel/
+		                upload-sf $FINAL_ZIP bacon/OwnKernel
 		                break
 		                ;;
 		        n|N )
