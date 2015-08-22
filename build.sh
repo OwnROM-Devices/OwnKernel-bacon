@@ -58,7 +58,7 @@ function make_zip {
 		do
 		case "$uchoice" in
 		        y|Y )
-		                upload-sf $FINAL_ZIP bacon/OwnKernel
+		                upload-sf $FINAL_ZIP ownrom/bacon/OwnKernel
 		                break
 		                ;;
 		        n|N )
