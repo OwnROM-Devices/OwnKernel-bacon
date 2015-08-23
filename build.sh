@@ -17,7 +17,7 @@ device="bacon"
 
 # Kernel Details
 BASE_OWN_VER="OwnKernel-Bacon-"
-VER="V1.2"
+VER="V1.3"
 OWN_VER="$BASE_OWN_VER$VER"
 
 # Vars
