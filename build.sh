@@ -5,7 +5,6 @@ green='\033[01;32m'
 red='\033[01;31m'
 blink_red='\033[05;31m'
 restore='\033[0m'
-
 clear
 
 # Resources
@@ -25,7 +24,7 @@ export LOCALVERSION=-`echo $OWN_VER`
 export CROSS_COMPILE="/home/akhilnarang/android/opo-tc/bin/arm-architoolchain-linux-gnueabihf-"
 export ARCH=arm
 export SUBARCH=arm
-
+export KBUILD_BUILD_HOST=$USER"'s-"`hostname`
 # Paths
 KERNEL_DIR=`pwd`
 REPACK_DIR="$KERNEL_DIR/anykernel"
@@ -40,7 +39,6 @@ function make_dtb {
 }
 function clean_all {
 		make clean && make mrproper
-		rm include/linux/autoconf.h
 }
 
 function make_kernel {
@@ -91,6 +89,9 @@ make_kernel
 make_dtb
 if [ -e "arch/arm/boot/zImage" ]; then
 make_zip
+else
+echo -e "Error Occurred"
+echo -e "zImage not found"
 fi
 ;;
 dirty)
@@ -98,6 +99,9 @@ make_kernel
 make_dtb
 if [ -e "arch/arm/boot/zImage" ]; then
 make_zip
+else
+echo -e "Error Occurred"
+echo -e "zImage not found"
 fi
 ;;
 *)
