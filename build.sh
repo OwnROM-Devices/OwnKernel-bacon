@@ -16,12 +16,12 @@ device="bacon"
 
 # Kernel Details
 BASE_OWN_VER="OwnKernel-Bacon-"
-VER="V1.3"
+VER="V1.4"
 OWN_VER="$BASE_OWN_VER$VER"
 
 # Vars
-export LOCALVERSION=-`echo $OWN_VER`
-export CROSS_COMPILE="/home/akhilnarang/UBERTC/out/arm-eabi-5.2-cortex-a15/bin/arm-eabi-"
+export LOCALVERSION="-$OWN_VER-$(date +%Y%m%d)"
+export CROSS_COMPILE="/home/akhilnarang/android/arm-eabi-5.2/bin/arm-eabi-"
 export ARCH=arm
 export SUBARCH=arm
 export KBUILD_BUILD_HOST=`hostname`
