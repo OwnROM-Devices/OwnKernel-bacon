@@ -21,42 +21,54 @@ OWN_VER="$BASE_OWN_VER$VER"
 
 # Vars
 export LOCALVERSION="-$OWN_VER-$(date +%Y%m%d)"
-export CROSS_COMPILE="/home/akhilnarang/android/arm-eabi-5.2/bin/arm-eabi-"
+export CROSS_COMPILE="/home/akhilnarang/UBERTC/out/arm-eabi-5.2-cortex-a15/bin/arm-eabi-"
 export ARCH=arm
 export SUBARCH=arm
-export KBUILD_BUILD_HOST=`hostname`
+export KBUILD_BUILD_HOST="blazingphoenix.in"
 # Paths
+OUT_DIR="/tmp/OwnKernel-bacon"
 KERNEL_DIR=`pwd`
 REPACK_DIR="$KERNEL_DIR/anykernel"
 PATCH_DIR="$KERNEL_DIR/anykernel/patch"
-ZIMAGE_DIR="$KERNEL_DIR/arch/arm/boot"
+ZIMAGE_DIR="$OUT_DIR/arch/arm/boot"
 FINAL_ZIP="/home/akhilnarang/android/$OWN_VER-$(date +%Y%m%d).zip"
 # Functions
 
-function make_dtb {
-		$REPACK_DIR/tools/dtbToolCM -2 -o $REPACK_DIR/$DTBIMAGE -s 2048 -p scripts/dtc/ arch/arm/boot/
+function upload()
+{
+scp $1 akhilnarang,ownrom@frs.sourceforge.net:/home/frs/project/ownrom/$device/OwnKernel/
+}
 
+function make_dtb {
+		anykernel/tools/dtbToolCM -2 -o $OUT_DIR/arch/arm/boot/dt.img -s 2048 -p $OUT_DIR/scripts/dtc/ $OUT_DIR/arch/arm/boot/
 }
 function clean_all {
 		make clean && make mrproper
+		make clean mrproper O=$OUT_DIR
+		rm -rf /tmp/OwnKernel-bacon
+		mkdir -p /tmp/OwnKernel-bacon
 }
 
 function make_kernel {
-		echo
-		make $DEFCONFIG
-		make $THREAD
+		mount -t tmpfs -o size=3072M tmpfs /tmp/OwnKernel-bacon
+		make $DEFCONFIG O=$OUT_DIR
+		DATE_START=$(date +"%s")
+		make -j8 O=$OUT_DIR
+		DATE_END=$(date +"%s")
+		DIFF=$(($DATE_END - $DATE_START))
+		echo "Time: $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 		cp -vr $ZIMAGE_DIR/$KERNEL $REPACK_DIR/zImage
 }
 
 function make_zip {
 		cd $REPACK_DIR
-		zip -r9 ~/android/$OWN_VER-$(date +%Y%m%d).zip *
+		zip -r9 $FINAL_ZIP *
 		cd $KERNEL_DIR
 		while read -p "Do you want to upload zip (y/n)? " uchoice
 		do
 		case "$uchoice" in
 		        y|Y )
-		                upload-sf $FINAL_ZIP ownrom/bacon/OwnKernel
+		                upload $FINAL_ZIP
 		                break
 		                ;;
 		        n|N )
@@ -72,7 +84,6 @@ function make_zip {
 }
 
 
-DATE_START=$(date +"%s")
 
 echo -e "${red}"; echo -e "${blink_red}"; echo "$AK_VER"; echo -e "${restore}";
 
@@ -87,7 +98,7 @@ clean|cleanbuild)
 clean_all
 make_kernel
 make_dtb
-if [ -e "arch/arm/boot/zImage" ]; then
+if [ -e "$OUT_DIR/arch/arm/boot/zImage" ]; then
 make_zip
 else
 echo -e "Error Occurred"
@@ -97,7 +108,7 @@ fi
 dirty)
 make_kernel
 make_dtb
-if [ -e "arch/arm/boot/zImage" ]; then
+if [ -e "$OUT_DIR/arch/arm/boot/zImage" ]; then
 make_zip
 else
 echo -e "Error Occurred"
@@ -133,7 +144,7 @@ case "$dchoice" in
 	y|Y)
 		make_kernel
 		make_dtb
-		if [ -e "arch/arm/boot/zImage" ]; then
+		if [ -e "$OUT_DIR/arch/arm/boot/zImage" ]; then
 		make_zip
 		fi
 		break
@@ -155,9 +166,7 @@ echo "-------------------"
 echo "Build Completed in:"
 echo "-------------------"
 echo -e "${restore}"
-
-DATE_END=$(date +"%s")
-DIFF=$(($DATE_END - $DATE_START))
 echo "Time: $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
-echo
+
+umount /tmp/OwnKernel-bacon
 
